@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+<script src="lib/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="lib/kePrint-0.0.1/kePrint.js"></script>
+<link href="lib/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+</head>
+<body>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; "><table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> sum_TN </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> sum_TP </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> sum_FN </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> sum_FP </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> total </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> True_Positive </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> True_Negative </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> False_Negative </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> False_Positive </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Accuracy </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Threshold </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1860 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 502 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.7539522 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.2034860 </td>
+   <td style="text-align:right;"> 0.7965140 </td>
+   <td style="text-align:right;"> 0.01 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1982 </td>
+   <td style="text-align:right;"> 104 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 380 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0421565 </td>
+   <td style="text-align:right;"> 0.8034049 </td>
+   <td style="text-align:right;"> 0.0004054 </td>
+   <td style="text-align:right;"> 0.1540332 </td>
+   <td style="text-align:right;"> 0.8455614 </td>
+   <td style="text-align:right;"> 0.02 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2046 </td>
+   <td style="text-align:right;"> 101 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 316 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0409404 </td>
+   <td style="text-align:right;"> 0.8293474 </td>
+   <td style="text-align:right;"> 0.0016214 </td>
+   <td style="text-align:right;"> 0.1280908 </td>
+   <td style="text-align:right;"> 0.8702878 </td>
+   <td style="text-align:right;"> 0.03 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2096 </td>
+   <td style="text-align:right;"> 97 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 266 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0393190 </td>
+   <td style="text-align:right;"> 0.8496149 </td>
+   <td style="text-align:right;"> 0.0032428 </td>
+   <td style="text-align:right;"> 0.1078233 </td>
+   <td style="text-align:right;"> 0.8889339 </td>
+   <td style="text-align:right;"> 0.04 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2130 </td>
+   <td style="text-align:right;"> 93 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 232 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0376976 </td>
+   <td style="text-align:right;"> 0.8633968 </td>
+   <td style="text-align:right;"> 0.0048642 </td>
+   <td style="text-align:right;"> 0.0940413 </td>
+   <td style="text-align:right;"> 0.9010944 </td>
+   <td style="text-align:right;"> 0.05 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2155 </td>
+   <td style="text-align:right;"> 92 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 207 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0372923 </td>
+   <td style="text-align:right;"> 0.8735306 </td>
+   <td style="text-align:right;"> 0.0052696 </td>
+   <td style="text-align:right;"> 0.0839076 </td>
+   <td style="text-align:right;"> 0.9108229 </td>
+   <td style="text-align:right;"> 0.06 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2177 </td>
+   <td style="text-align:right;"> 91 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 185 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0368869 </td>
+   <td style="text-align:right;"> 0.8824483 </td>
+   <td style="text-align:right;"> 0.0056749 </td>
+   <td style="text-align:right;"> 0.0749899 </td>
+   <td style="text-align:right;"> 0.9193352 </td>
+   <td style="text-align:right;"> 0.07 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2189 </td>
+   <td style="text-align:right;"> 88 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 173 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0356709 </td>
+   <td style="text-align:right;"> 0.8873125 </td>
+   <td style="text-align:right;"> 0.0068910 </td>
+   <td style="text-align:right;"> 0.0701257 </td>
+   <td style="text-align:right;"> 0.9229834 </td>
+   <td style="text-align:right;"> 0.08 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2203 </td>
+   <td style="text-align:right;"> 88 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 159 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0356709 </td>
+   <td style="text-align:right;"> 0.8929874 </td>
+   <td style="text-align:right;"> 0.0068910 </td>
+   <td style="text-align:right;"> 0.0644507 </td>
+   <td style="text-align:right;"> 0.9286583 </td>
+   <td style="text-align:right;"> 0.09 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2212 </td>
+   <td style="text-align:right;"> 87 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 150 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0352655 </td>
+   <td style="text-align:right;"> 0.8966356 </td>
+   <td style="text-align:right;"> 0.0072963 </td>
+   <td style="text-align:right;"> 0.0608026 </td>
+   <td style="text-align:right;"> 0.9319011 </td>
+   <td style="text-align:right;"> 0.10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2219 </td>
+   <td style="text-align:right;"> 87 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 143 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0352655 </td>
+   <td style="text-align:right;"> 0.8994730 </td>
+   <td style="text-align:right;"> 0.0072963 </td>
+   <td style="text-align:right;"> 0.0579651 </td>
+   <td style="text-align:right;"> 0.9347385 </td>
+   <td style="text-align:right;"> 0.11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2232 </td>
+   <td style="text-align:right;"> 86 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 130 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0348602 </td>
+   <td style="text-align:right;"> 0.9047426 </td>
+   <td style="text-align:right;"> 0.0077017 </td>
+   <td style="text-align:right;"> 0.0526956 </td>
+   <td style="text-align:right;"> 0.9396028 </td>
+   <td style="text-align:right;"> 0.12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2237 </td>
+   <td style="text-align:right;"> 81 </td>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 125 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0328334 </td>
+   <td style="text-align:right;"> 0.9067694 </td>
+   <td style="text-align:right;"> 0.0097284 </td>
+   <td style="text-align:right;"> 0.0506688 </td>
+   <td style="text-align:right;"> 0.9396028 </td>
+   <td style="text-align:right;"> 0.13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2245 </td>
+   <td style="text-align:right;"> 81 </td>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 117 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0328334 </td>
+   <td style="text-align:right;"> 0.9100122 </td>
+   <td style="text-align:right;"> 0.0097284 </td>
+   <td style="text-align:right;"> 0.0474260 </td>
+   <td style="text-align:right;"> 0.9428456 </td>
+   <td style="text-align:right;"> 0.14 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2252 </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 110 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0320227 </td>
+   <td style="text-align:right;"> 0.9128496 </td>
+   <td style="text-align:right;"> 0.0105391 </td>
+   <td style="text-align:right;"> 0.0445886 </td>
+   <td style="text-align:right;"> 0.9448723 </td>
+   <td style="text-align:right;"> 0.15 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2259 </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 103 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0320227 </td>
+   <td style="text-align:right;"> 0.9156871 </td>
+   <td style="text-align:right;"> 0.0105391 </td>
+   <td style="text-align:right;"> 0.0417511 </td>
+   <td style="text-align:right;"> 0.9477098 </td>
+   <td style="text-align:right;"> 0.16 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2261 </td>
+   <td style="text-align:right;"> 78 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 101 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0316173 </td>
+   <td style="text-align:right;"> 0.9164978 </td>
+   <td style="text-align:right;"> 0.0109445 </td>
+   <td style="text-align:right;"> 0.0409404 </td>
+   <td style="text-align:right;"> 0.9481151 </td>
+   <td style="text-align:right;"> 0.17 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2268 </td>
+   <td style="text-align:right;"> 78 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 94 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0316173 </td>
+   <td style="text-align:right;"> 0.9193352 </td>
+   <td style="text-align:right;"> 0.0109445 </td>
+   <td style="text-align:right;"> 0.0381030 </td>
+   <td style="text-align:right;"> 0.9509526 </td>
+   <td style="text-align:right;"> 0.18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2271 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 91 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0312120 </td>
+   <td style="text-align:right;"> 0.9205513 </td>
+   <td style="text-align:right;"> 0.0113498 </td>
+   <td style="text-align:right;"> 0.0368869 </td>
+   <td style="text-align:right;"> 0.9517633 </td>
+   <td style="text-align:right;"> 0.19 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2275 </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 87 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0308066 </td>
+   <td style="text-align:right;"> 0.9221727 </td>
+   <td style="text-align:right;"> 0.0117552 </td>
+   <td style="text-align:right;"> 0.0352655 </td>
+   <td style="text-align:right;"> 0.9529793 </td>
+   <td style="text-align:right;"> 0.20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2279 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 83 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0304013 </td>
+   <td style="text-align:right;"> 0.9237941 </td>
+   <td style="text-align:right;"> 0.0121605 </td>
+   <td style="text-align:right;"> 0.0336441 </td>
+   <td style="text-align:right;"> 0.9541954 </td>
+   <td style="text-align:right;"> 0.21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2284 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 78 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0299959 </td>
+   <td style="text-align:right;"> 0.9258208 </td>
+   <td style="text-align:right;"> 0.0125659 </td>
+   <td style="text-align:right;"> 0.0316173 </td>
+   <td style="text-align:right;"> 0.9558168 </td>
+   <td style="text-align:right;"> 0.22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2286 </td>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0283745 </td>
+   <td style="text-align:right;"> 0.9266315 </td>
+   <td style="text-align:right;"> 0.0141873 </td>
+   <td style="text-align:right;"> 0.0308066 </td>
+   <td style="text-align:right;"> 0.9550061 </td>
+   <td style="text-align:right;"> 0.23 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2289 </td>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0283745 </td>
+   <td style="text-align:right;"> 0.9278476 </td>
+   <td style="text-align:right;"> 0.0141873 </td>
+   <td style="text-align:right;"> 0.0295906 </td>
+   <td style="text-align:right;"> 0.9562221 </td>
+   <td style="text-align:right;"> 0.24 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2297 </td>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 65 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0283745 </td>
+   <td style="text-align:right;"> 0.9310904 </td>
+   <td style="text-align:right;"> 0.0141873 </td>
+   <td style="text-align:right;"> 0.0263478 </td>
+   <td style="text-align:right;"> 0.9594649 </td>
+   <td style="text-align:right;"> 0.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2298 </td>
+   <td style="text-align:right;"> 69 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 64 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0279692 </td>
+   <td style="text-align:right;"> 0.9314957 </td>
+   <td style="text-align:right;"> 0.0145926 </td>
+   <td style="text-align:right;"> 0.0259424 </td>
+   <td style="text-align:right;"> 0.9594649 </td>
+   <td style="text-align:right;"> 0.26 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2300 </td>
+   <td style="text-align:right;"> 68 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 62 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0275638 </td>
+   <td style="text-align:right;"> 0.9323064 </td>
+   <td style="text-align:right;"> 0.0149980 </td>
+   <td style="text-align:right;"> 0.0251317 </td>
+   <td style="text-align:right;"> 0.9598703 </td>
+   <td style="text-align:right;"> 0.27 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2302 </td>
+   <td style="text-align:right;"> 66 </td>
+   <td style="text-align:right;"> 39 </td>
+   <td style="text-align:right;"> 60 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0267531 </td>
+   <td style="text-align:right;"> 0.9331171 </td>
+   <td style="text-align:right;"> 0.0158087 </td>
+   <td style="text-align:right;"> 0.0243210 </td>
+   <td style="text-align:right;"> 0.9598703 </td>
+   <td style="text-align:right;"> 0.28 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2304 </td>
+   <td style="text-align:right;"> 63 </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 58 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0255371 </td>
+   <td style="text-align:right;"> 0.9339278 </td>
+   <td style="text-align:right;"> 0.0170247 </td>
+   <td style="text-align:right;"> 0.0235103 </td>
+   <td style="text-align:right;"> 0.9594649 </td>
+   <td style="text-align:right;"> 0.29 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2310 </td>
+   <td style="text-align:right;"> 63 </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0255371 </td>
+   <td style="text-align:right;"> 0.9363600 </td>
+   <td style="text-align:right;"> 0.0170247 </td>
+   <td style="text-align:right;"> 0.0210782 </td>
+   <td style="text-align:right;"> 0.9618970 </td>
+   <td style="text-align:right;"> 0.30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2311 </td>
+   <td style="text-align:right;"> 63 </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 51 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0255371 </td>
+   <td style="text-align:right;"> 0.9367653 </td>
+   <td style="text-align:right;"> 0.0170247 </td>
+   <td style="text-align:right;"> 0.0206729 </td>
+   <td style="text-align:right;"> 0.9623024 </td>
+   <td style="text-align:right;"> 0.31 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2315 </td>
+   <td style="text-align:right;"> 61 </td>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 47 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0247264 </td>
+   <td style="text-align:right;"> 0.9383867 </td>
+   <td style="text-align:right;"> 0.0178354 </td>
+   <td style="text-align:right;"> 0.0190515 </td>
+   <td style="text-align:right;"> 0.9631131 </td>
+   <td style="text-align:right;"> 0.32 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2316 </td>
+   <td style="text-align:right;"> 61 </td>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0247264 </td>
+   <td style="text-align:right;"> 0.9387921 </td>
+   <td style="text-align:right;"> 0.0178354 </td>
+   <td style="text-align:right;"> 0.0186461 </td>
+   <td style="text-align:right;"> 0.9635184 </td>
+   <td style="text-align:right;"> 0.33 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2318 </td>
+   <td style="text-align:right;"> 57 </td>
+   <td style="text-align:right;"> 48 </td>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0231050 </td>
+   <td style="text-align:right;"> 0.9396028 </td>
+   <td style="text-align:right;"> 0.0194568 </td>
+   <td style="text-align:right;"> 0.0178354 </td>
+   <td style="text-align:right;"> 0.9627077 </td>
+   <td style="text-align:right;"> 0.34 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2320 </td>
+   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 49 </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0226996 </td>
+   <td style="text-align:right;"> 0.9404135 </td>
+   <td style="text-align:right;"> 0.0198622 </td>
+   <td style="text-align:right;"> 0.0170247 </td>
+   <td style="text-align:right;"> 0.9631131 </td>
+   <td style="text-align:right;"> 0.35 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2322 </td>
+   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 49 </td>
+   <td style="text-align:right;"> 40 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0226996 </td>
+   <td style="text-align:right;"> 0.9412242 </td>
+   <td style="text-align:right;"> 0.0198622 </td>
+   <td style="text-align:right;"> 0.0162140 </td>
+   <td style="text-align:right;"> 0.9639238 </td>
+   <td style="text-align:right;"> 0.36 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2323 </td>
+   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 49 </td>
+   <td style="text-align:right;"> 39 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0226996 </td>
+   <td style="text-align:right;"> 0.9416295 </td>
+   <td style="text-align:right;"> 0.0198622 </td>
+   <td style="text-align:right;"> 0.0158087 </td>
+   <td style="text-align:right;"> 0.9643291 </td>
+   <td style="text-align:right;"> 0.37 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2325 </td>
+   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 49 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0226996 </td>
+   <td style="text-align:right;"> 0.9424402 </td>
+   <td style="text-align:right;"> 0.0198622 </td>
+   <td style="text-align:right;"> 0.0149980 </td>
+   <td style="text-align:right;"> 0.9651398 </td>
+   <td style="text-align:right;"> 0.38 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2326 </td>
+   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:right;"> 51 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0218889 </td>
+   <td style="text-align:right;"> 0.9428456 </td>
+   <td style="text-align:right;"> 0.0206729 </td>
+   <td style="text-align:right;"> 0.0145926 </td>
+   <td style="text-align:right;"> 0.9647345 </td>
+   <td style="text-align:right;"> 0.39 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2326 </td>
+   <td style="text-align:right;"> 53 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0214836 </td>
+   <td style="text-align:right;"> 0.9428456 </td>
+   <td style="text-align:right;"> 0.0210782 </td>
+   <td style="text-align:right;"> 0.0145926 </td>
+   <td style="text-align:right;"> 0.9643291 </td>
+   <td style="text-align:right;"> 0.40 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2328 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 53 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0210782 </td>
+   <td style="text-align:right;"> 0.9436563 </td>
+   <td style="text-align:right;"> 0.0214836 </td>
+   <td style="text-align:right;"> 0.0137819 </td>
+   <td style="text-align:right;"> 0.9647345 </td>
+   <td style="text-align:right;"> 0.41 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2329 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 55 </td>
+   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0202675 </td>
+   <td style="text-align:right;"> 0.9440616 </td>
+   <td style="text-align:right;"> 0.0222943 </td>
+   <td style="text-align:right;"> 0.0133766 </td>
+   <td style="text-align:right;"> 0.9643291 </td>
+   <td style="text-align:right;"> 0.42 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2330 </td>
+   <td style="text-align:right;"> 48 </td>
+   <td style="text-align:right;"> 57 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0194568 </td>
+   <td style="text-align:right;"> 0.9444670 </td>
+   <td style="text-align:right;"> 0.0231050 </td>
+   <td style="text-align:right;"> 0.0129712 </td>
+   <td style="text-align:right;"> 0.9639238 </td>
+   <td style="text-align:right;"> 0.43 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2331 </td>
+   <td style="text-align:right;"> 48 </td>
+   <td style="text-align:right;"> 57 </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0194568 </td>
+   <td style="text-align:right;"> 0.9448723 </td>
+   <td style="text-align:right;"> 0.0231050 </td>
+   <td style="text-align:right;"> 0.0125659 </td>
+   <td style="text-align:right;"> 0.9643291 </td>
+   <td style="text-align:right;"> 0.44 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2331 </td>
+   <td style="text-align:right;"> 48 </td>
+   <td style="text-align:right;"> 57 </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0194568 </td>
+   <td style="text-align:right;"> 0.9448723 </td>
+   <td style="text-align:right;"> 0.0231050 </td>
+   <td style="text-align:right;"> 0.0125659 </td>
+   <td style="text-align:right;"> 0.9643291 </td>
+   <td style="text-align:right;"> 0.45 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2332 </td>
+   <td style="text-align:right;"> 45 </td>
+   <td style="text-align:right;"> 60 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0182408 </td>
+   <td style="text-align:right;"> 0.9452777 </td>
+   <td style="text-align:right;"> 0.0243210 </td>
+   <td style="text-align:right;"> 0.0121605 </td>
+   <td style="text-align:right;"> 0.9635184 </td>
+   <td style="text-align:right;"> 0.46 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2333 </td>
+   <td style="text-align:right;"> 43 </td>
+   <td style="text-align:right;"> 62 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0174301 </td>
+   <td style="text-align:right;"> 0.9456830 </td>
+   <td style="text-align:right;"> 0.0251317 </td>
+   <td style="text-align:right;"> 0.0117552 </td>
+   <td style="text-align:right;"> 0.9631131 </td>
+   <td style="text-align:right;"> 0.47 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2335 </td>
+   <td style="text-align:right;"> 43 </td>
+   <td style="text-align:right;"> 62 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0174301 </td>
+   <td style="text-align:right;"> 0.9464937 </td>
+   <td style="text-align:right;"> 0.0251317 </td>
+   <td style="text-align:right;"> 0.0109445 </td>
+   <td style="text-align:right;"> 0.9639238 </td>
+   <td style="text-align:right;"> 0.48 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2335 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 64 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0166194 </td>
+   <td style="text-align:right;"> 0.9464937 </td>
+   <td style="text-align:right;"> 0.0259424 </td>
+   <td style="text-align:right;"> 0.0109445 </td>
+   <td style="text-align:right;"> 0.9631131 </td>
+   <td style="text-align:right;"> 0.49 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2335 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 64 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0166194 </td>
+   <td style="text-align:right;"> 0.9464937 </td>
+   <td style="text-align:right;"> 0.0259424 </td>
+   <td style="text-align:right;"> 0.0109445 </td>
+   <td style="text-align:right;"> 0.9631131 </td>
+   <td style="text-align:right;"> 0.50 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2335 </td>
+   <td style="text-align:right;"> 38 </td>
+   <td style="text-align:right;"> 67 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0154033 </td>
+   <td style="text-align:right;"> 0.9464937 </td>
+   <td style="text-align:right;"> 0.0271585 </td>
+   <td style="text-align:right;"> 0.0109445 </td>
+   <td style="text-align:right;"> 0.9618970 </td>
+   <td style="text-align:right;"> 0.51 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2337 </td>
+   <td style="text-align:right;"> 37 </td>
+   <td style="text-align:right;"> 68 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0149980 </td>
+   <td style="text-align:right;"> 0.9473044 </td>
+   <td style="text-align:right;"> 0.0275638 </td>
+   <td style="text-align:right;"> 0.0101338 </td>
+   <td style="text-align:right;"> 0.9623024 </td>
+   <td style="text-align:right;"> 0.52 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2339 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0141873 </td>
+   <td style="text-align:right;"> 0.9481151 </td>
+   <td style="text-align:right;"> 0.0283745 </td>
+   <td style="text-align:right;"> 0.0093231 </td>
+   <td style="text-align:right;"> 0.9623024 </td>
+   <td style="text-align:right;"> 0.53 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2339 </td>
+   <td style="text-align:right;"> 35 </td>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0141873 </td>
+   <td style="text-align:right;"> 0.9481151 </td>
+   <td style="text-align:right;"> 0.0283745 </td>
+   <td style="text-align:right;"> 0.0093231 </td>
+   <td style="text-align:right;"> 0.9623024 </td>
+   <td style="text-align:right;"> 0.54 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2343 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0129712 </td>
+   <td style="text-align:right;"> 0.9497365 </td>
+   <td style="text-align:right;"> 0.0295906 </td>
+   <td style="text-align:right;"> 0.0077017 </td>
+   <td style="text-align:right;"> 0.9627077 </td>
+   <td style="text-align:right;"> 0.55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2345 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0129712 </td>
+   <td style="text-align:right;"> 0.9505472 </td>
+   <td style="text-align:right;"> 0.0295906 </td>
+   <td style="text-align:right;"> 0.0068910 </td>
+   <td style="text-align:right;"> 0.9635184 </td>
+   <td style="text-align:right;"> 0.56 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2345 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0129712 </td>
+   <td style="text-align:right;"> 0.9505472 </td>
+   <td style="text-align:right;"> 0.0295906 </td>
+   <td style="text-align:right;"> 0.0068910 </td>
+   <td style="text-align:right;"> 0.9635184 </td>
+   <td style="text-align:right;"> 0.57 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2347 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0129712 </td>
+   <td style="text-align:right;"> 0.9513579 </td>
+   <td style="text-align:right;"> 0.0295906 </td>
+   <td style="text-align:right;"> 0.0060803 </td>
+   <td style="text-align:right;"> 0.9643291 </td>
+   <td style="text-align:right;"> 0.58 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2349 </td>
+   <td style="text-align:right;"> 32 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0129712 </td>
+   <td style="text-align:right;"> 0.9521686 </td>
+   <td style="text-align:right;"> 0.0295906 </td>
+   <td style="text-align:right;"> 0.0052696 </td>
+   <td style="text-align:right;"> 0.9651398 </td>
+   <td style="text-align:right;"> 0.59 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2349 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0121605 </td>
+   <td style="text-align:right;"> 0.9521686 </td>
+   <td style="text-align:right;"> 0.0304013 </td>
+   <td style="text-align:right;"> 0.0052696 </td>
+   <td style="text-align:right;"> 0.9643291 </td>
+   <td style="text-align:right;"> 0.60 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2350 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0121605 </td>
+   <td style="text-align:right;"> 0.9525740 </td>
+   <td style="text-align:right;"> 0.0304013 </td>
+   <td style="text-align:right;"> 0.0048642 </td>
+   <td style="text-align:right;"> 0.9647345 </td>
+   <td style="text-align:right;"> 0.61 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2351 </td>
+   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0121605 </td>
+   <td style="text-align:right;"> 0.9529793 </td>
+   <td style="text-align:right;"> 0.0304013 </td>
+   <td style="text-align:right;"> 0.0044589 </td>
+   <td style="text-align:right;"> 0.9651398 </td>
+   <td style="text-align:right;"> 0.62 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2353 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0113498 </td>
+   <td style="text-align:right;"> 0.9537900 </td>
+   <td style="text-align:right;"> 0.0312120 </td>
+   <td style="text-align:right;"> 0.0036482 </td>
+   <td style="text-align:right;"> 0.9651398 </td>
+   <td style="text-align:right;"> 0.63 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2353 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 78 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0109445 </td>
+   <td style="text-align:right;"> 0.9537900 </td>
+   <td style="text-align:right;"> 0.0316173 </td>
+   <td style="text-align:right;"> 0.0036482 </td>
+   <td style="text-align:right;"> 0.9647345 </td>
+   <td style="text-align:right;"> 0.64 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2353 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0101338 </td>
+   <td style="text-align:right;"> 0.9537900 </td>
+   <td style="text-align:right;"> 0.0324281 </td>
+   <td style="text-align:right;"> 0.0036482 </td>
+   <td style="text-align:right;"> 0.9639238 </td>
+   <td style="text-align:right;"> 0.65 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2353 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 84 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0085124 </td>
+   <td style="text-align:right;"> 0.9537900 </td>
+   <td style="text-align:right;"> 0.0340495 </td>
+   <td style="text-align:right;"> 0.0036482 </td>
+   <td style="text-align:right;"> 0.9623024 </td>
+   <td style="text-align:right;"> 0.66 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2353 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 86 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0077017 </td>
+   <td style="text-align:right;"> 0.9537900 </td>
+   <td style="text-align:right;"> 0.0348602 </td>
+   <td style="text-align:right;"> 0.0036482 </td>
+   <td style="text-align:right;"> 0.9614917 </td>
+   <td style="text-align:right;"> 0.67 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2353 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 88 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0068910 </td>
+   <td style="text-align:right;"> 0.9537900 </td>
+   <td style="text-align:right;"> 0.0356709 </td>
+   <td style="text-align:right;"> 0.0036482 </td>
+   <td style="text-align:right;"> 0.9606810 </td>
+   <td style="text-align:right;"> 0.68 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2354 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 90 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0060803 </td>
+   <td style="text-align:right;"> 0.9541954 </td>
+   <td style="text-align:right;"> 0.0364816 </td>
+   <td style="text-align:right;"> 0.0032428 </td>
+   <td style="text-align:right;"> 0.9602756 </td>
+   <td style="text-align:right;"> 0.69 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2354 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 91 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0056749 </td>
+   <td style="text-align:right;"> 0.9541954 </td>
+   <td style="text-align:right;"> 0.0368869 </td>
+   <td style="text-align:right;"> 0.0032428 </td>
+   <td style="text-align:right;"> 0.9598703 </td>
+   <td style="text-align:right;"> 0.70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2354 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 94 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0044589 </td>
+   <td style="text-align:right;"> 0.9541954 </td>
+   <td style="text-align:right;"> 0.0381030 </td>
+   <td style="text-align:right;"> 0.0032428 </td>
+   <td style="text-align:right;"> 0.9586542 </td>
+   <td style="text-align:right;"> 0.71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2354 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 95 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0040535 </td>
+   <td style="text-align:right;"> 0.9541954 </td>
+   <td style="text-align:right;"> 0.0385083 </td>
+   <td style="text-align:right;"> 0.0032428 </td>
+   <td style="text-align:right;"> 0.9582489 </td>
+   <td style="text-align:right;"> 0.72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2356 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 96 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0036482 </td>
+   <td style="text-align:right;"> 0.9550061 </td>
+   <td style="text-align:right;"> 0.0389137 </td>
+   <td style="text-align:right;"> 0.0024321 </td>
+   <td style="text-align:right;"> 0.9586542 </td>
+   <td style="text-align:right;"> 0.73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2356 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0020268 </td>
+   <td style="text-align:right;"> 0.9550061 </td>
+   <td style="text-align:right;"> 0.0405351 </td>
+   <td style="text-align:right;"> 0.0024321 </td>
+   <td style="text-align:right;"> 0.9570328 </td>
+   <td style="text-align:right;"> 0.74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2357 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0020268 </td>
+   <td style="text-align:right;"> 0.9554114 </td>
+   <td style="text-align:right;"> 0.0405351 </td>
+   <td style="text-align:right;"> 0.0020268 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2358 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 101 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0016214 </td>
+   <td style="text-align:right;"> 0.9558168 </td>
+   <td style="text-align:right;"> 0.0409404 </td>
+   <td style="text-align:right;"> 0.0016214 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2359 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 102 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0012161 </td>
+   <td style="text-align:right;"> 0.9562221 </td>
+   <td style="text-align:right;"> 0.0413458 </td>
+   <td style="text-align:right;"> 0.0012161 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2361 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 102 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0012161 </td>
+   <td style="text-align:right;"> 0.9570328 </td>
+   <td style="text-align:right;"> 0.0413458 </td>
+   <td style="text-align:right;"> 0.0004054 </td>
+   <td style="text-align:right;"> 0.9582489 </td>
+   <td style="text-align:right;"> 0.78 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 102 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0012161 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0413458 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9586542 </td>
+   <td style="text-align:right;"> 0.79 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 104 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0004054 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0421565 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9578435 </td>
+   <td style="text-align:right;"> 0.80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 104 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0004054 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0421565 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9578435 </td>
+   <td style="text-align:right;"> 0.81 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.82 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.83 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.84 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.85 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.86 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.87 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.88 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.89 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.90 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.91 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.92 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.93 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.94 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.95 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.96 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.97 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.98 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2362 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 105 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 2467 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.0425618 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.9574382 </td>
+   <td style="text-align:right;"> 0.99 </td>
+  </tr>
+</tbody>
+</table></div> <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [["$","$"]]}})</script><script async src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

@@ -1,0 +1,311 @@
+# SETUP
+
+# load libraries
+library(caret)
+library(pscl)
+library(plotROC)
+library(pROC)
+library(sf)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(FNN)
+library(scales)
+library(jtools)
+library(viridis)
+library(gridExtra)
+
+
+# load themes and palettes
+mapTheme <- function(base_size = 12) {
+  theme(
+    text = element_text( color = "black"),
+    plot.title = element_text(size = 14,colour = "black"),
+    plot.subtitle=element_text(face="italic"),
+    plot.caption=element_text(hjust=0),
+    axis.ticks = element_blank(),
+    panel.background = element_blank(),axis.title = element_blank(),
+    axis.text = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_rect(colour = "black", fill=NA, size=2),
+    strip.text.x = element_text(size = 14))
+}
+
+plotTheme <- function(base_size = 12) {
+  theme(
+    text = element_text( color = "black"),
+    plot.title = element_text(size = 14,colour = "black"),
+    plot.subtitle = element_text(face="italic"),
+    plot.caption = element_text(hjust=0),
+    axis.ticks = element_blank(),
+    panel.background = element_blank(),
+    panel.grid.major = element_line("grey80", size = 0.1),
+    panel.grid.minor = element_blank(),
+    panel.border = element_rect(colour = "black", fill=NA, size=2),
+    strip.background = element_rect(fill = "grey80", color = "white"),
+    strip.text = element_text(size=12),
+    axis.title = element_text(size=12),
+    axis.text = element_text(size=10),
+    plot.background = element_blank(),
+    legend.background = element_blank(),
+    legend.title = element_text(colour = "black", face = "italic"),
+    legend.text = element_text(colour = "black", face = "italic"),
+    strip.text.x = element_text(size = 14)
+  )
+}
+
+
+# CALGARY: Load Calgary fishnet generated in ArcGIS Pro (200x200m cells).
+getwd()
+setwd("C:/Users/Leila'Laptop/Documents/GitHub/Calgary-Flood-Inundation-Modeling/Data")
+Calgary <- st_read("calgary_criteria.shp")
+#plot(Calgary, max.plot = 14)
+plot(Calgary[,2:10])
+
+
+#Maps of All Significant Features included in the Model
+map.elevation <- ggplot() +
+  geom_sf(data = Calgary, aes(fill = elevation), color=NA) +
+  scale_fill_viridis()+
+  labs(title = "Elevation (Mean)", fill="Distance \n(meters)") + mapTheme()
+
+map.water <- ggplot() +
+  geom_sf(data = Calgary, aes(fill = dist_water), color=NA) +
+  scale_fill_viridis()+
+  labs(title = "Distance to Nearest Stream", fill="Distance \n(meters)") + mapTheme()
+
+map.flowAccu <- ggplot() +
+  geom_sf(data = Calgary, aes(fill = Flow_Accum), color=NA) +
+  scale_fill_viridis()+
+  labs(title = "Flow Accumulation \n (Maximum)", fill="Distance \n(meters)") + mapTheme()
+
+map.steepslopedist <- ggplot() +
+  geom_sf(data = Calgary, aes(fill = dist_slop), color=NA) +
+  scale_fill_viridis()+
+  labs(title = "Distance to \nNearest Steep Slope", fill="Distance \n(meters)") + mapTheme()
+
+map.hydrolength <- ggplot() +
+  geom_sf(data = Calgary, aes(fill = flowlength), color=NA) +
+  scale_fill_viridis()+
+  labs(title = "Distance to \nNearest Park", fill="Distance \n(meters)") + mapTheme()
+
+map.distparks <- ggplot() +
+  geom_sf(data = Calgary, aes(fill = dist_park), color=NA) +
+  scale_fill_viridis()+
+  labs(title = "Distance to \nNearest Park", fill="Distance \n(meters)") + mapTheme()
+
+
+grid.arrange(map.elevation, map.water,map.flowAccu,map.steepslopedist, map.hydrolength, map.distparks ,  
+             ncol=3,
+             top = "")
+
+#Plotting Features per Inundation Outcome
+CalgaryPlotVariables <- 
+  Calgary %>%
+  as.data.frame() %>%
+  select(Inundation, elevation, dist_water, tree_dens, 
+         Flow_Accum, dist_slop, dist_park,
+         flowlength, dev_sum, PopDens) %>%
+  gather(key, value, elevation:PopDens) %>%
+  mutate(value = ifelse(key == "Inundation", value*1000, value))
+
+
+# Do again to scale the bars
+CalgaryPlotVariables <- 
+  CalgaryPlotVariables %>%
+  mutate(value = ifelse(key == "Inundation", value*1000, value))
+
+ggplot(CalgaryPlotVariables, aes(as.factor(Inundation), value, fill=as.factor(Inundation))) + 
+  geom_bar(stat="identity") + 
+  facet_wrap(~key, scales="free") +
+  scale_fill_manual(values = c("dodgerblue4", "darkgreen"),
+                    labels = c("Not Inundation","Inundation"),
+                    name = "") +
+  labs(x="Inundation", y="Value")
+
+# set Training vs Testing
+set.seed(3456)
+trainIndex <- createDataPartition(Calgary$Inundation, p = .70,
+                                  list = FALSE,
+                                  times = 1)
+CalgaryTrain <- Calgary[ trainIndex,]
+CalgaryTest  <- Calgary[-trainIndex,]
+
+InundationModel <- glm(Inundation ~ . - Id, 
+                    family="binomial"(link="logit"), data = CalgaryTrain %>%
+                      as.data.frame() %>%
+                      select(-geometry, -basin, -dist_deve, dist_fores, -Residentia, -dist_fores))
+
+print(InundationModel)
+summary(InundationModel)
+
+classProbs <- predict(InundationModel, CalgaryTest, type="response")
+
+hist((classProbs), main = paste("Histogram of classProbs"), col = "blue", xlab = "Inundation Probability") + plotTheme()
+
+#Distribution of Probabilities Visualization
+testProbs <- data.frame(obs = as.numeric(CalgaryTest$Inundation),
+                        pred = classProbs)
+
+
+ggplot(testProbs, aes(x = pred, fill=as.factor(obs))) + geom_density() +
+  facet_grid(obs ~ .) + xlab("Probability") + geom_vline(xintercept = .38) +
+  scale_fill_manual(values = c("darkgreen", "navy"),
+                    labels = c("Not Flooded","Flooded"),
+                    name="") +
+  labs(title = "Distribution of Probabilities") + plotTheme()
+
+# iterateThresholds function
+iterateThresholds <- function(data, group) {
+  group <- enquo(group)
+  x = .01
+  all_prediction <- data.frame()
+  while (x <= 1) {
+    
+    this_prediction <-
+      testProbs %>%
+      mutate(predOutcome = ifelse(pred > x, 1, 0)) %>%
+      group_by(!!group) %>%
+      dplyr::count(predOutcome, obs) %>%
+      dplyr::summarize(sum_TN = sum(n[predOutcome==0 & obs==0]),
+                       sum_TP = sum(n[predOutcome==1 & obs==1]),
+                       sum_FN = sum(n[predOutcome==0 & obs==1]),
+                       sum_FP = sum(n[predOutcome==1 & obs==0]),
+                       total=sum(n)) %>%
+      mutate(True_Positive = sum_TP / total,
+             True_Negative = sum_TN / total,
+             False_Negative = sum_FN / total,
+             False_Positive = sum_FP / total,
+             Accuracy = (sum_TP + sum_TN) / total, Threshold = x)
+    
+    all_prediction <- rbind(all_prediction, this_prediction)
+    x <- x + .01
+  }
+  return(all_prediction)
+}
+
+
+whichThreshold <- iterateThresholds(testProbs)
+
+allThresholds<-kable(whichThreshold) %>%
+  kable_styling(bootstrap_options = "striped", full_width = FALSE)%>%
+  scroll_box(width = "100%", height = "500px")
+
+allThresholds
+
+
+testProbs$predClass  = ifelse(testProbs$pred > .0.53 ,1,0)
+
+xtab.regCalgary <- caret::confusionMatrix(reference = as.factor(testProbs$obs),
+                                          data = as.factor(testProbs$predClass),
+                                          positive = "1")
+
+as.matrix(xtab.regCalgary) %>% kable(caption = "Confusion Matrix") %>% kable_styling("striped", full_width = T, font_size = 14, position = "left")
+
+as.matrix(xtab.regCalgary, what="classes") %>% kable(caption = "Confusion Matrix - Statistics") %>% kable_styling(font_size = 14, full_width = T,
+                                                                                                                  bootstrap_options = c("striped", "hover"))
+
+test_predictions <- testProbs %>%
+  mutate(TN = predClass==0 & obs==0,
+         TP = predClass==1 & obs==1,
+         FN =  predClass==0 & obs==1,
+         FP = predClass==1 & obs==0)
+
+
+test_predictions <- test_predictions %>%
+  mutate(confResult=case_when(TN == TRUE ~ "True_Negative",
+                              TP == TRUE ~ "True_Positive",
+                              FN == TRUE ~ "False_Negative",
+                              FP == TRUE ~ "False_Positive"))
+
+
+#join with geometry for the map of prediction classes
+cal_test_predictions_mapdata <- cbind(CalgaryTest, test_predictions, by= "ID_FISHNET") %>% st_as_sf()
+
+
+ggplot() +
+  geom_sf(data=cal_test_predictions_mapdata, aes(fill=confResult), colour=NA)+
+  scale_fill_discrete()+
+  mapTheme() +
+  labs(title="Map of Prediction Classes on Calgary Test")
+
+#ROC Curve
+ggplot(testProbs, aes(d = obs, m = pred)) +
+  geom_roc(n.cuts = 50, labels = FALSE) +
+  style_roc(theme = theme_grey) +
+  geom_abline(slope = 1, intercept = 0, size = 1.5, color = 'grey') + labs(title="ROC Curve", subtitle="AUC ~ 0.96") + plotTheme()
+
+auc_calgary <- auc(testProbs$obs, testProbs$pred)
+print(auc_calgary)
+
+#convert inundation to factor
+Calgary$Inundation <-as.factor(as.character(Calgary$Inundation))
+
+ctrl <- trainControl(method = "cv",
+                     number = 100,
+                     savePredictions = TRUE)
+
+cvFit_InundationModel <- train(as.factor(Inundation) ~ ., data = Calgary %>%
+                                 as.data.frame() %>%
+                                 select(-geometry, -basin, -dist_deve, dist_fores),
+                               method="glm", family="binomial", trControl=ctrl)
+
+cvFit_InundationModel
+
+dplyr::select(cvFit_InundationModel$resample, -Resample) %>%
+  gather(metric, value) %>%
+  left_join(gather(cvFit_InundationModel$results[2:4], metric, mean)) %>%
+  ggplot(aes(value)) +
+  geom_histogram(bins=35, fill = "navy") +
+  facet_wrap(~metric) +
+  geom_vline(aes(xintercept = mean), colour = "red", linetype = 3, size = 1.5) +
+  scale_x_continuous(limits = c(0, 1)) +
+  labs(x="Goodness of Fit", y="Count", title="Accuracy and Kappa",
+       subtitle = "Across-fold mean represented as dotted lines") +plotTheme()
+
+allPredictions <-
+  predict(cvFit_InundationModel, Calgary, type="prob")[,2]
+
+calgary_fishnet_final_preds <- Calgary %>%
+  cbind(Calgary,allPredictions) %>%
+  mutate(allPredictions = round(allPredictions * 100)) 
+
+ggplot() +
+  geom_sf(data=calgary_fishnet_final_preds, aes(fill=(allPredictions)), colour=NA) +
+  scale_fill_viridis(name = "Probability")+
+  mapTheme() +
+  labs(title="Predictions for Inundation in Calgary")
+
+ggplot() +
+  geom_sf(data=calgary_fishnet_final_preds, aes(fill=(allPredictions)), colour=NA) +
+  scale_fill_viridis(name = "Probability")+
+  geom_sf(data = calgary_fishnet_final_preds %>%
+            filter(Inundation=="1"),
+          aes(), color="transparent", fill="red", alpha=0.5)+
+  mapTheme() +
+  labs(title="Predictions for Inundation in Calgary", subtitle = "2013 flood extent in red overlay")
+
+#apply to Denver
+den_fishnet <- st_read("denver_criteria.shp") %>% st_as_sf() %>%
+  rename(Id = ID) %>%
+  rename(PopDens = pop_Dens) %>%
+  rename(flowlength = flow_lengt) %>%
+  rename(dist_park = dist_park) %>%
+  rename(dev_sum = dev_sum)
+
+formula(InundationModel)
+names(den_fishnet)
+allPredictions_den <-
+  predict(InundationModel, den_fishnet, type="response")
+
+den_fishnet_final_preds <- den_fishnet %>%
+  cbind(den_fishnet, allPredictions_den) %>%
+  mutate(allPredictions_den = round(allPredictions_den*100)) %>% st_as_sf()
+
+ggplot() +
+  geom_sf(data=den_fishnet_final_preds, aes(fill=(allPredictions_den)), colour=NA) +
+  scale_fill_viridis(name = "Probability")+
+  mapTheme() +
+  labs(title="Predictions for Inundation in Denver")

@@ -1,0 +1,8 @@
+"0","ggplot() +"
+"0","  geom_sf(data=calgary_fishnet_final_preds, aes(fill=(allPredictions)), colour=NA) +"
+"0","  scale_fill_viridis(name = ""Probability"")+"
+"0","  geom_sf(data = calgary_fishnet_final_preds %>%"
+"0","            filter(Inundation==""1""),"
+"0","          aes(), color=""transparent"", fill=""red"", alpha=0.5)+"
+"0","  mapTheme() +"
+"0","  labs(title=""Predictions for Inundation in Calgary"", subtitle = ""2013 flood extent in red overlay"")"

@@ -1,0 +1,8 @@
+"0","ggplot(data = Calgary) +
+  geom_sf(aes(fill = Inundation)) +  # Color by 'Inundation'
+  scale_fill_manual(values = c(0 = ""lightgray"", 1 = ""blue"")) +  # Custom colors
+"
+"2","Error: unexpected '=' in:
+""  geom_sf(aes(fill = Inundation)) +  # Color by 'Inundation'
+  scale_fill_manual(values = c(0 =""
+"
